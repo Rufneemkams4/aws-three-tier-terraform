@@ -31,3 +31,15 @@ variable "domain_name" {
 variable "hosted_zone_name" {
   type = string
 }
+
+
+variable "alert_email" {
+  description = "Email address for CloudWatch alarm notifications"
+  type        = string
+}
+
+
+variable "certificate_domain" {
+  description = "Domain name of the existing wildcard ACM certificate"
+  type        = string
+}

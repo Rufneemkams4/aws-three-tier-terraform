@@ -11,7 +11,7 @@ terraform {
 # 1. Fetch Existing ACM Certificate in us-east-1 for CloudFront
 data "aws_acm_certificate" "cloudfront_cert" {
   provider    = aws.us_east_1
-  domain      = var.domain_name
+  domain      = var.certificate_domain
   statuses    = ["ISSUED"]
   most_recent = true
 }
@@ -25,7 +25,7 @@ resource "aws_cloudfront_distribution" "this" {
   price_class     = "PriceClass_100" # Lowest cost tier (US, Canada, Europe)
 
   origin {
-    domain_name = var.alb_dns_name
+    domain_name = var.origin_domain_name
     origin_id   = "ALB-${var.environment}"
 
     custom_origin_config {
@@ -45,7 +45,12 @@ resource "aws_cloudfront_distribution" "this" {
     # Switch to CachingOptimized managed policy if serving static assets
     forwarded_values {
       query_string = true
-      headers      = ["*"]
+      headers = [
+        "Accept",
+        "Accept-Language",
+        "Authorization",
+        "Origin"
+      ]
 
       cookies {
         forward = "all"

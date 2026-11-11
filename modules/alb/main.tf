@@ -1,6 +1,6 @@
 # 1. Fetch Existing ACM Certificate from Route 53 domain lookup
 data "aws_acm_certificate" "issued" {
-  domain      = var.domain_name
+  domain      = var.certificate_domain
   statuses    = ["ISSUED"]
   most_recent = true
 }

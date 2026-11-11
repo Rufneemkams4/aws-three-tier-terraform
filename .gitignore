@@ -30,6 +30,7 @@ override.tf.json
 *.tfplan
 tfplan
 planout
+plan.txt
 
 # Environment variables and credentials
 .env

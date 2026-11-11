@@ -29,3 +29,9 @@ variable "app_port" {
   type        = number
   default     = 8080
 }
+
+
+variable "certificate_domain" {
+  description = "Domain name of the existing ACM certificate used by the ALB"
+  type        = string
+}
